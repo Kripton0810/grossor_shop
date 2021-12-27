@@ -1,5 +1,6 @@
 <?php
 include 'dbcon.php';
+include 'config.php';
     date_default_timezone_set('asia/kolkata');
     $date = date("Y-m-d H:i:s");
     if(isset($_POST['submit']))
@@ -12,7 +13,7 @@ include 'dbcon.php';
     $pass = $_POST['password'];
     $hash = password_hash($pass,PASSWORD_BCRYPT);
     $token  = bin2hex(random_bytes(20));
-    $query = "SELECT * FROM `user` WHERE `email`='{$email}'";
+    $query = "SELECT * FROM `user` WHERE `email`='{$email}'";//if any user present
     $run = $con->query($query);
     $error = array();
     if(mysqli_num_rows($run)>0)
@@ -57,8 +58,8 @@ include 'dbcon.php';
       {
         $spical_tok = $token."::".$email."::".$date;
         $base = base64_encode($spical_tok);
-          echo "You have been registered Successfully";
-          $body = "Hi $name,\nTo activate your account pls click on this link valid upto 10 mins http://127.0.0.1/grossorshop/accountverify.php?user=".$spical_tok;
+          echo "You have been registered Successfully<br>";
+          $body = "Hi $name,\nTo activate your account pls click on this link valid upto 10 mins http://127.0.0.1/grossorshop/accountverify.php?user=".$base;
           $mail = mail($email,"Account Vaerification from grossor shop",$body);
           if($mail)
           {
@@ -93,23 +94,23 @@ include 'dbcon.php';
             <div class="card-body">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="username" required="">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="username" >
                   </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-signature"></i></span>
-                    <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" name="name" required="">
+                    <input type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" name="name" >
                   </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope-open-text"></i></span>
-                    <input type="text" class="form-control" placeholder="E-mail" aria-label="Username" aria-describedby="basic-addon1" name="email" required="">
+                    <input type="text" class="form-control" placeholder="E-mail" aria-label="Username" aria-describedby="basic-addon1" name="email" >
                   </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
-                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="Username" aria-describedby="basic-addon1" name="phno" required="">
+                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="Username" aria-describedby="basic-addon1" name="phno" >
                   </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                    <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" name="password" required="">
+                    <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" name="password" >
                   </div>
                   <div class="d-flex w-50 justify-content-between">
                     <i class="fas fa-venus-mars"></i><h6>Gender</h6>
@@ -118,24 +119,25 @@ include 'dbcon.php';
                       </div>
                       <div class="form-check">
                         <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="male" required="">
+                          <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="male" >
                           Male
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="gender" id="optionsRadios3" value="female" required="">
+                          <input type="radio" class="form-check-input" name="gender" id="optionsRadios3" value="female" >
                             Female
                         </label>
                       </div>
                       <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="others" required="">
+                        <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="others" >
                         Others
                       </label>
                     </div>
                     <div class="d-flex w-50 mx-auto justify-content-between">
                         <button type="submit" class="btn btn-outline-success" name = "submit">Submit</button>
                         <button type="reset" class="btn btn-outline-warning">Reset</button>
+                        <a href="<?php echo $client->createAuthUrl(); ?>" class="btn btn-outline-warning" name="google">Google SignUp</a>
                     </div>
             </div>
           </div>

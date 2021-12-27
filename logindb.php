@@ -5,7 +5,7 @@
     $query = "SELECT * FROM `user` WHERE `email`='{$email}'";
     $run = $con->query($query);
     if (mysqli_num_rows($run)==0) {
-        echo "no user present!! login first";
+        echo "no user present!! signup first";
     } else {
         $row = mysqli_fetch_assoc($run);
         if($row['isactive'])
