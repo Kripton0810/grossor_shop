@@ -11,12 +11,12 @@ $arr = explode("::",$all);
 $token = $arr[0];
 $time = $arr[2];
 
-$d1 = strtotime($d);
-$d2 = strtotime($time);
+$d1 = strtotime($d);//current time
+$d2 = strtotime($time);//token generation time
 
 $diff = $d1-$d2;
 
-if($diff<=120)
+if($diff<=600)
 {
     $query = "UPDATE `user` SET `isactive`= true where `token` = '$token'";
     $run = $con->query($query);
