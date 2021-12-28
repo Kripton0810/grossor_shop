@@ -9,6 +9,5 @@ include('firebasecon.php');
     ];
     $ref = "userdb/";
     $postdata = $db->getReference($ref)->push($data);
-
-
+    
 ?>
