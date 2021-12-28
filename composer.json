@@ -1,6 +1,7 @@
 {
     "require": {
         "kreait/firebase-php": "^5.25",
-        "google/apiclient": "^2.12"
+        "google/apiclient": "^2.12",
+        "google/cloud-storage": "^1.25"
     }
 }

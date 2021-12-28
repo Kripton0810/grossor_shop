@@ -1,10 +1,12 @@
 <?php
 include 'dbcon.php';
 include 'config.php';
+include 'firebasecon.php';
     date_default_timezone_set('asia/kolkata');
     $date = date("Y-m-d H:i:s");
     if(isset($_POST['submit']))
     {
+      
     $name = $_POST['name'];
     $email = $_POST['email'];
     $unm = $_POST['username'];
@@ -58,11 +60,31 @@ include 'config.php';
       {
         $spical_tok = $token."::".$email."::".$date;
         $base = base64_encode($spical_tok);
+        if (isset($_FILES['profile_pic'])) {
+          $pic = $_FILES['profile_pic'];
+          if(!file_exists('profileimg/'))
+          {
+            mkdir('profileimg/');
+          }
+          move_uploaded_file($pic['tmp_name'],"profileimg/{$token}.png");
+        }
           echo "You have been registered Successfully<br>";
           $body = "Hi $name,\nTo activate your account pls click on this link valid upto 10 mins http://127.0.0.1/grossorshop/accountverify.php?user=".$base;
           $mail = mail($email,"Account Vaerification from grossor shop",$body);
           if($mail)
           {
+            $data=[
+              "email"=>$email,
+              "username"=>$unm,
+              "phone"=>$phon,
+              "gender"=>$gender,
+              "token"=>$token,
+              "registationTime"=>$data,
+              "isactive"=>false,
+              "password"=>$hash
+            ];
+            $ref = "userdb/";
+            $postdata = $db->getReference($ref)->push($data);
             echo "Mail send Token valid upto 10 mins";
           }
           else
@@ -88,7 +110,7 @@ include 'config.php';
     <link href="https://bootswatch.com/5/quartz/bootstrap.min.css" rel="stylesheet">
     </head>
 <body>
-    <form class="w-100 d-flex flex-column" method="post">
+    <form class="w-100 d-flex flex-column" method="post" enctype="multipart/form-data">
         <div class="card border-secondary mx-auto mt-5 w-50">
             <div class="card-header"><i class="fas fa-user-friends"></i> Registation</div>
             <div class="card-body">
@@ -133,6 +155,10 @@ include 'config.php';
                         <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="others" >
                         Others
                       </label>
+                    </div>
+                    <div class="form-group mb-2">
+                      <label for="formFile" class="form-label">Profile Pic</label>
+                      <input class="form-control" type="file" accept="image/png, image/jpg, image/gif, image/jpeg" name="profile_pic" id="formFile">
                     </div>
                     <div class="d-flex w-50 mx-auto justify-content-between">
                         <button type="submit" class="btn btn-outline-success" name = "submit">Submit</button>

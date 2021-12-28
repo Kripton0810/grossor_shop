@@ -15,11 +15,15 @@
             <div class="card-body">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Username/Email" aria-label="Username" aria-describedby="basic-addon1" name="email" required="">
+                    <input type="text" class="form-control" placeholder="Username/Email" aria-label="Username" aria-describedby="basic-addon1" value="<?php if(isset($_COOKIE['email'])) echo $_COOKIE['email'] ?>" name="email" required="">
                   </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                    <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" name="password" required="">
+                    <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" name="password" value="<?php if(isset($_COOKIE['password'])) echo $_COOKIE['password'] ?>" required="">
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="rempass" id="flexSwitchCheckChecked">
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Remember password?</label>
                   </div>
                     <div class="d-flex w-50 mx-auto justify-content-between">
                         <button type="submit" class="btn btn-outline-success" name = "submit">Submit</button>
