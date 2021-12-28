@@ -18,5 +18,4 @@ else
 $gservice = new Google_Service_Oauth2($client);
 $data = $gservice->userinfo->get();
 print_r(json_encode($data));
-echo "<img src='{$data['picture']}'>";
 ?>
