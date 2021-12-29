@@ -17,6 +17,7 @@ return array(
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Lcobucci\\JWT\\' => array($vendorDir . '/lcobucci/jwt/src'),
     'Lcobucci\\Clock\\' => array($vendorDir . '/lcobucci/clock/src'),
@@ -36,4 +37,5 @@ return array(
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Firebase\\Auth\\Token\\' => array($vendorDir . '/kreait/firebase-tokens/src/Firebase/Auth/Token'),
     'Fig\\Http\\Message\\' => array($vendorDir . '/fig/http-message-util/src'),
+    'Aws\\' => array($vendorDir . '/aws/aws-sdk-php/src'),
 );
