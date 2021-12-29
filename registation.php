@@ -56,6 +56,7 @@ include 'firebasecon.php';
      {
       $upload = "INSERT INTO `user`(`username`, `name`, `email`, `phone`, `gender`, `password`, `token`, `isactive`, `registationTime`) VALUES ('{$unm}','{$name}','{$email}','{$phon}','{$gender}','{$hash}','{$token}',false,'{$date}')";
       $uploadRun = $con->query($upload);
+      $profilepic = "";
       if($uploadRun)
       {
         $spical_tok = $token."::".$email."::".$date;
@@ -66,6 +67,8 @@ include 'firebasecon.php';
           {
             mkdir('profileimg/');
           }
+          $picd = file_get_contents($pic['tmp_name']);
+          $profilepic=base64_encode($picd);
           move_uploaded_file($pic['tmp_name'],"profileimg/{$token}.png");
         }
           echo "You have been registered Successfully<br>";
@@ -79,9 +82,10 @@ include 'firebasecon.php';
               "phone"=>$phon,
               "gender"=>$gender,
               "token"=>$token,
-              "registationTime"=>$data,
+              "registationTime"=>$date,
               "isactive"=>false,
-              "password"=>$hash
+              "password"=>$hash,
+              "profile_pic"=>$profilepic
             ];
             $ref = "userdb/";
             $postdata = $db->getReference($ref)->push($data);

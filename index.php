@@ -7,6 +7,8 @@ if (isset($_SESSION['token'])) {
 }
 else
 {
+    
+    echo "user unavailabe";
     //how to redirect?
     header("location: login.php");
 }

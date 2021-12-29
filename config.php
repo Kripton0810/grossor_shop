@@ -2,9 +2,9 @@
 
     require 'vendor/autoload.php';
     $client = new Google_Client();
-    $client->setClientId('977537279231-7hgorultet9o1ls8b8g60v3v6ioobov0.apps.googleusercontent.com');
-    $client->setClientSecret('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');
-    $client->setRedirectUri('http://127.0.0.1/grossorshop/googleregistation.php');
+    $client->setClientId('550635920173-4paoammch0atb1m63lvmmk5bisorid2k.apps.googleusercontent.com');
+    $client->setClientSecret('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');
+    $client->setRedirectUri('http://127.0.0.1/grossorshop/googlelogin.php');
     $client->addScope('email');
     $client->addScope('profile');
 ?>
